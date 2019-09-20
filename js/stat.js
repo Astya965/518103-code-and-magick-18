@@ -57,9 +57,9 @@ var renderВarGraphElement = function (ctx, name, time, height, x, y) {
 
 // Отрисовка статистики
 
-window.renderStatistics = function(ctx, names, times) {
-  renderCloud (ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
-  renderCloud (ctx, CLOUD_X, CLOUD_Y, 'rgba(255, 255, 255, 1');
+window.renderStatistics = function (ctx, names, times) {
+  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, 'rgba(255, 255, 255, 1');
 
   renderCloudTitle(ctx, CLOUD_X + GAP * 3, CLOUD_Y + GAP * 2);
 
