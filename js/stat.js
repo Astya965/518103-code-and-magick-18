@@ -8,7 +8,6 @@ var GAP = 10;
 var BAR_GRAPH_HEIGTH = 150;
 var BAR_WIDTH = 40;
 var BAR_GAP = 50;
-var maxTime;
 
 // Получение максимального числа в массиве
 
@@ -34,41 +33,39 @@ var getRandomSaturation = function (hueValue, lightness) {
 
 // Создание элемнетов отрисовки статистики
 
-var renderCloud = function (ctx, x, y, color) {
-  ctx.fillStyle = color;
+var renderCloud =  function (ctx, x, y) {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+  ctx.fillRect(x + GAP, y + GAP, CLOUD_WIDTH, CLOUD_HEIGHT);
+  ctx.fillStyle = 'rgba(255, 255, 255, 1';
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
-};
 
-var renderCloudTitle = function (ctx, x, y) {
   ctx.font = '16px PT Mono';
-  ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+  ctx.fillStyle = '#000';
   ctx.textBaseline = 'hanging';
-  ctx.fillText('Ура вы победили!', x, y);
-  ctx.fillText('Список результатов:', x, y + GAP * 2);
-};
+  ctx.fillText('Ура вы победили!', x + GAP * 3, y + GAP * 2);
+  ctx.fillText('Список результатов:', x + GAP * 3, y + GAP * 4);
+}
 
-var renderВarGraphElement = function (ctx, name, time, height, x, y) {
+var renderВarGraphElement = function (ctx, namesArray, timesArray, elementIndex) {
+  var maxTime = getMaxValue(timesArray);
+
+  var barHeight = Math.ceil(timesArray[elementIndex]) * 100 / maxTime;
+  var barX = CLOUD_X + BAR_WIDTH + BAR_GAP * 2 * elementIndex;
+  var barY = CLOUD_Y + GAP * 5 + (BAR_GRAPH_HEIGTH - barHeight);
+
   ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-  ctx.fillText(name, x, CLOUD_HEIGHT - GAP * 2);
-  ctx.fillText(time, x, y - GAP * 2);
-  ctx.fillStyle = name.toUpperCase() === 'ВЫ' ? 'rgba(255, 0, 0, 1)' : getRandomSaturation(240, 50);
-  ctx.fillRect(x, y, BAR_WIDTH, height);
+  ctx.fillText(namesArray[elementIndex], barX, CLOUD_HEIGHT - GAP * 5);
+  ctx.fillText(Math.ceil(timesArray[elementIndex]), barX, barY - GAP * 2);
+  ctx.fillStyle = namesArray[elementIndex].toUpperCase() === 'ВЫ' ? 'rgba(255, 0, 0, 1)' : getRandomSaturation(240, 50);
+  ctx.fillRect(barX, barY, BAR_WIDTH, barHeight);
 };
 
 // Отрисовка статистики
 
 window.renderStatistics = function (ctx, names, times) {
-  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, 'rgba(255, 255, 255, 1');
+  renderCloud(ctx, CLOUD_X, CLOUD_Y);
 
-  renderCloudTitle(ctx, CLOUD_X + GAP * 3, CLOUD_Y + GAP * 2);
-
-  maxTime = getMaxValue(times);
   for (var i = 0; i < names.length; i++) {
-    var barHeight = Math.ceil(times[i]) * 100 / maxTime;
-    var barX = CLOUD_X + BAR_WIDTH + BAR_GAP * 2 * i;
-    var barY = CLOUD_Y + GAP * 8 + (BAR_GRAPH_HEIGTH - barHeight);
-
-    renderВarGraphElement(ctx, names[i], Math.ceil(times[i]), barHeight, barX, barY);
+    renderВarGraphElement(ctx, names, times, i);
   }
 };
