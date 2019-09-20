@@ -33,7 +33,7 @@ var getRandomSaturation = function (hueValue, lightness) {
 
 // Создание элемнетов отрисовки статистики
 
-var renderCloud =  function (ctx, x, y) {
+var renderCloud = function (ctx, x, y) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.fillRect(x + GAP, y + GAP, CLOUD_WIDTH, CLOUD_HEIGHT);
   ctx.fillStyle = 'rgba(255, 255, 255, 1';
@@ -44,9 +44,9 @@ var renderCloud =  function (ctx, x, y) {
   ctx.textBaseline = 'hanging';
   ctx.fillText('Ура вы победили!', x + GAP * 3, y + GAP * 2);
   ctx.fillText('Список результатов:', x + GAP * 3, y + GAP * 4);
-}
+};
 
-var renderВarGraphElement = function (ctx, namesArray, timesArray, elementIndex) {
+var renderВarGraph = function (ctx, namesArray, timesArray, elementIndex) {
   var maxTime = getMaxValue(timesArray);
 
   var barHeight = Math.ceil(timesArray[elementIndex]) * 100 / maxTime;
@@ -66,6 +66,6 @@ window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X, CLOUD_Y);
 
   for (var i = 0; i < names.length; i++) {
-    renderВarGraphElement(ctx, names, times, i);
+    renderВarGraph(ctx, names, times, i);
   }
 };
