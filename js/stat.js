@@ -51,7 +51,7 @@ var renderВarGraph = function (ctx, namesArray, timesArray, elementIndex) {
 
   var barHeight = BAR_MAX_HEIGTH / maxTime * Math.ceil(timesArray[elementIndex]);
   var barX = CLOUD_X + BAR_WIDTH + BAR_GAP * 2 * elementIndex;
-  var barY = CLOUD_Y + GAP * 8  + (BAR_MAX_HEIGTH - barHeight);
+  var barY = CLOUD_Y + GAP * 8 + (BAR_MAX_HEIGTH - barHeight);
 
   ctx.fillStyle = 'rgba(0, 0, 0, 1)';
   ctx.fillText(namesArray[elementIndex], barX, CLOUD_HEIGHT - GAP * 2);
