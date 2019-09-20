@@ -5,7 +5,7 @@ var CLOUD_HEIGHT = 270;
 var CLOUD_X = 100;
 var CLOUD_Y = 10;
 var GAP = 10;
-var BAR_GRAPH_HEIGTH = 150;
+var BAR_MAX_HEIGTH = 150;
 var BAR_WIDTH = 40;
 var BAR_GAP = 50;
 
@@ -49,12 +49,12 @@ var renderCloud = function (ctx, x, y) {
 var renderВarGraph = function (ctx, namesArray, timesArray, elementIndex) {
   var maxTime = getMaxValue(timesArray);
 
-  var barHeight = Math.ceil(timesArray[elementIndex]) * 100 / maxTime;
+  var barHeight = BAR_MAX_HEIGTH / maxTime * Math.ceil(timesArray[elementIndex]);
   var barX = CLOUD_X + BAR_WIDTH + BAR_GAP * 2 * elementIndex;
-  var barY = CLOUD_Y + GAP * 5 + (BAR_GRAPH_HEIGTH - barHeight);
+  var barY = CLOUD_Y + GAP * 8  + (BAR_MAX_HEIGTH - barHeight);
 
   ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-  ctx.fillText(namesArray[elementIndex], barX, CLOUD_HEIGHT - GAP * 5);
+  ctx.fillText(namesArray[elementIndex], barX, CLOUD_HEIGHT - GAP * 2);
   ctx.fillText(Math.ceil(timesArray[elementIndex]), barX, barY - GAP * 2);
   ctx.fillStyle = namesArray[elementIndex].toUpperCase() === 'ВЫ' ? 'rgba(255, 0, 0, 1)' : getRandomSaturation(240, 50);
   ctx.fillRect(barX, barY, BAR_WIDTH, barHeight);
