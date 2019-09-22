@@ -28,9 +28,9 @@ for (var i = 0; i < 4; i++) {
     name: firstnames[getRandomElement(firstnames)] + ' ' + surnames[getRandomElement(surnames)],
     coatColor: clothesСolors[getRandomElement(clothesСolors)],
     eyesColor: eyesColors[getRandomElement(eyesColors)]
-  }
+  };
   characterArray.push(characterObject);
-};
+}
 
 // Генерация случайного персонажа
 var renderCharacter = function (character) {
