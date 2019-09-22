@@ -28,7 +28,7 @@ for (var i = 0; i < 4; i++) {
     name: firstnames[getRandomElement(firstnames)] + ' ' + surnames[getRandomElement(surnames)],
     coatColor: clothesСolors[getRandomElement(clothesСolors)],
     eyesColor: eyesColors[getRandomElement(eyesColors)]
-  };
+  }
   characterArray.push(characterObject);
 };
 
@@ -44,12 +44,12 @@ var renderCharacter = function (character) {
   characterEyesColor.style.fill = character.eyesColor;
 
   return characterElement;
-}
+};
 
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < characterArray.length; i++) {
-  fragment.appendChild(renderCharacter(characterArray[i]));
-};
+for (var j = 0; j < characterArray.length; j++) {
+  fragment.appendChild(renderCharacter(characterArray[j]));
+}
 similarListElement.appendChild(fragment);
 
 // Список похожих персонажей становится виден
