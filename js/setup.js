@@ -19,8 +19,8 @@ var showDialog = function () {
 
 /**
  * Выбор случайного элемента массива
- * @param {array} array
- * @return {string|number|Object} Случайный элемент массива
+ * @param {Array} array
+ * @return {String|Number|Object} Случайный элемент массива
  */
 var getRandomElement = function (array) {
   var randonIndex = Math.floor(Math.random() * (array.length));
@@ -42,7 +42,7 @@ var generateCharacterData = function () {
 /**
  * Генерация случайного персонажа
  * @param {Object} character - Объект с данными персонажа
- * @return {string} Шаблон для генерации персонажа
+ * @return {HTMLElemet} Шаблон для генерации персонажа
  */
 var renderCharacter = function (character) {
   var characterElement = similarСharacterTemplate.cloneNode(true);
