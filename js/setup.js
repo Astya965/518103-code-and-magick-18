@@ -57,11 +57,17 @@ var renderCharacter = function (character) {
   return characterElement;
 };
 
-showDialog();
+/**
+ * @description Отображает похожих персонажей в модальном окне
+ */
+var showSimilarCharacters = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < CHARACTER_COUNT; i++) {
+    var characterData = generateCharacterData();
+    fragment.appendChild(renderCharacter(characterData));
+  }
+  similarListElement.appendChild(fragment);
+};
 
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < CHARACTER_COUNT; i++) {
-  var characterData = generateCharacterData();
-  fragment.appendChild(renderCharacter(characterData));
-}
-similarListElement.appendChild(fragment);
+showSimilarCharacters();
+showDialog();
