@@ -75,7 +75,7 @@ var showSimilarCharacters = function () {
 /**
  * @description Показывает похожих персонажей в модальном окне
  */
-var showDialog = function () {
+var showSimilarCharactersSection = function () {
   document.querySelector('.setup-similar').classList.remove('hidden');
 };
 
@@ -97,7 +97,7 @@ var closePopup = function () {
 
 /**
  * Отмена закрытия окна при нажатии на ESC
- * @param {Object} evt
+ * @param {Event} evt
  */
 var onPlayerNameInputEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -107,7 +107,7 @@ var onPlayerNameInputEscPress = function (evt) {
 
 /**
  * Закрытия окна при нажатии на ESC
- * @param {Object} evt
+ * @param {Event} evt
  */
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -127,7 +127,7 @@ setupOpen.addEventListener('click', function () {
 
 /**
  * Событие открытия окна настройки персонажа при нажание Enter при фокусе на иконке пользователя
- * @param {Object} evt
+ * @param {Event} evt
  */
 setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
@@ -144,7 +144,7 @@ setupClose.addEventListener('click', function () {
 
 /**
  * Событие закрытия окна настройки персонажа при нажание Enter при фокусе на крестике в меню настройки персонажа
- * @param {Object} evt
+ * @param {Event} evt
  */
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
@@ -155,7 +155,7 @@ setupClose.addEventListener('keydown', function (evt) {
 /**
  * @description Событие закрытия окна настройки персонажа при нажатии на ECS
  */
-setupClose.addEventListener('keydown', onPopupEscPress);
+document.addEventListener('keydown', onPopupEscPress);
 
 /**
  * @description Событие отмены закрытия окна настройки персонажа, если фокус находится на поле ввода
@@ -199,6 +199,6 @@ characterFireball.addEventListener('click', function () {
 });
 
 showSimilarCharacters();
-showDialog();
+showSimilarCharactersSection();
 
 
