@@ -1,16 +1,21 @@
 'use strict';
 (function () {
   var setupOpen = document.querySelector('.setup-open');
-  var setupClose = window.setup.setupPopup.querySelector('.setup-close');
-  var playerNameInput = window.setup.setupPopup.querySelector('.setup-user-name');
+  var setupClose = window.util.elems.setupPopup.querySelector('.setup-close');
+  var dialogHandle = window.util.elems.setupPopup.querySelector('.upload');
   var isFocusOnNameInput = false;
-  var dialogHandle = window.setup.setupPopup.querySelector('.upload');
+  var POPUP_DEFAULT = {
+    x: window.util.elems.setupPopup.style.left,
+    y: window.util.elems.setupPopup.style.top
+  };
 
   /**
    * @description Показывает модальное окно настройки персонажа
    */
   var openPopup = function () {
-    window.setup.setupPopup.classList.remove('hidden');
+    window.util.elems.setupPopup.classList.remove('hidden');
+    window.util.elems.setupPopup.style.left = POPUP_DEFAULT.x;
+    window.util.elems.setupPopup.style.top = POPUP_DEFAULT.y;
     document.addEventListener('keydown', onPopupEscPress);
   };
 
@@ -18,7 +23,7 @@
    * @description Закрывает модальное окно настройки персонажа
    */
   var closePopup = function () {
-    window.setup.setupPopup.classList.add('hidden');
+    window.util.elems.setupPopup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
@@ -77,20 +82,6 @@
   document.addEventListener('keydown', onPopupEscPress);
 
   /**
-   * @description Событие отмены закрытия окна настройки персонажа, если фокус находится на поле ввода
-   */
-  playerNameInput.addEventListener('focus', function () {
-    isFocusOnNameInput = true;
-  });
-
-  /**
-   * @description Удаляет событие отмены закрытия окна настройки персонажа, если фокус убирается на поля ввода
-   */
-  playerNameInput.addEventListener('blur', function () {
-    isFocusOnNameInput = false;
-  });
-
-  /**
    * Событие перетаскивания окна, активируется при нажатии левой кнопки мыши на аватар пользователя в окне персонажа
    * @param {Event} evt
    */
@@ -123,8 +114,8 @@
         y: moveEvt.clientY
       };
 
-      window.setup.setupPopup.style.top = (window.setup.setupPopup.offsetTop - shift.y) + 'px';
-      window.setup.setupPopup.style.left = (window.setup.setupPopup.offsetLeft - shift.x) + 'px';
+      window.util.elems.setupPopup.style.top = (window.util.elems.setupPopup.offsetTop - shift.y) + 'px';
+      window.util.elems.setupPopup.style.left = (window.util.elems.setupPopup.offsetLeft - shift.x) + 'px';
 
     };
 

@@ -1,30 +1,13 @@
 'use strict';
 
 (function () {
-  var FIRSTNAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-  var CLOTHER_СOLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-  var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-  var CHARACTER_COUNT = 4;
-
-  var setupPopup = document.querySelector('.setup');
-  var setupCharacter = setupPopup.querySelector('.setup-wizard');
+  var setupCharacter = window.util.elems.setupPopup.querySelector('.setup-wizard');
   var characterCoat = setupCharacter.querySelector('.wizard-coat');
   var characterEyes = setupCharacter.querySelector('.wizard-eyes');
-  var characterFireball = setupPopup.querySelector('.setup-fireball-wrap');
+  var characterFireball = window.util.elems.setupPopup.querySelector('.setup-fireball-wrap');
 
   var similarListElement = document.querySelector('.setup-similar-list');
   var similarСharacterTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  /**
-   * Выбор случайного элемента массива
-   * @param {Array} array
-   * @return {Any} Случайный элемент массива
-   */
-  var getRandomElement = function (array) {
-    var randonIndex = Math.floor(Math.random() * (array.length));
-    return array[randonIndex];
-  };
 
   /**
    * Генерация данных персонажа
@@ -32,9 +15,9 @@
    */
   var generateCharacterData = function () {
     return {
-      name: getRandomElement(FIRSTNAMES) + ' ' + getRandomElement(SURNAMES),
-      coatColor: getRandomElement(CLOTHER_СOLORS),
-      eyesColor: getRandomElement(EYES_COLORS)
+      name: window.util.getRandomElement(window.util.const.FIRSTNAMES) + ' ' + window.util.getRandomElement(window.util.const.SURNAMES),
+      coatColor: window.util.getRandomElement(window.util.const.CLOTHER_СOLORS),
+      eyesColor: window.util.getRandomElement(window.util.const.EYES_COLORS)
     };
   };
 
@@ -61,7 +44,7 @@
    */
   var showSimilarCharacters = function () {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < CHARACTER_COUNT; i++) {
+    for (var i = 0; i < window.util.const.CHARACTER_COUNT; i++) {
       var characterData = generateCharacterData();
       fragment.appendChild(renderCharacter(characterData));
     }
@@ -79,32 +62,28 @@
    * @description Смена цвета одежды персонажа при клике на одежду
    */
   characterCoat.addEventListener('click', function () {
-    var playersCharacterCoatColor = getRandomElement(CLOTHER_СOLORS);
+    var playersCharacterCoatColor = window.util.getRandomElement(window.util.const.CLOTHER_СOLORS);
     characterCoat.style = 'fill: ' + playersCharacterCoatColor;
-    setupPopup.querySelector('input[name="coat-color"]').value = playersCharacterCoatColor;
+    window.util.elems.setupPopup.querySelector('input[name="coat-color"]').value = playersCharacterCoatColor;
   });
 
   /**
    * @description Смена цвета глаз персонажа при клике на глаза
    */
   characterEyes.addEventListener('click', function () {
-    var playersCharacterEyesColor = getRandomElement(EYES_COLORS);
+    var playersCharacterEyesColor = window.util.getRandomElement(window.util.const.EYES_COLORS);
     characterEyes.style = 'fill: ' + playersCharacterEyesColor;
-    setupPopup.querySelector('input[name="eyes-color"]').value = playersCharacterEyesColor;
+    window.util.elems.setupPopup.querySelector('input[name="eyes-color"]').value = playersCharacterEyesColor;
   });
 
   /**
    * @description Смена цвета фона фаербола при клике на фаербол
    */
   characterFireball.addEventListener('click', function () {
-    var playersCharacterFireballColor = getRandomElement(FIREBALL_COLORS);
+    var playersCharacterFireballColor = window.util.getRandomElement(window.util.const.FIREBALL_COLORS);
     characterFireball.style = 'background: ' + playersCharacterFireballColor;
-    setupPopup.querySelector('input[name="fireball-color"]').value = playersCharacterFireballColor;
+    window.util.elems.setupPopup.querySelector('input[name="fireball-color"]').value = playersCharacterFireballColor;
   });
-
-  window.setup = {
-    setupPopup: document.querySelector('.setup')
-  };
 
   showSimilarCharacters();
   showSimilarCharactersSection();
