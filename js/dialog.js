@@ -1,16 +1,16 @@
 'use strict';
 (function () {
-  var setupPopup = window.setup.setup;
   var setupOpen = document.querySelector('.setup-open');
-  var setupClose = setupPopup.querySelector('.setup-close');
-  var playerNameInput = setupPopup.querySelector('.setup-user-name');
+  var setupClose = window.setup.setupPopup.querySelector('.setup-close');
+  var playerNameInput = window.setup.setupPopup.querySelector('.setup-user-name');
   var isFocusOnNameInput = false;
+  var dialogHandle = window.setup.setupPopup.querySelector('.upload');
 
   /**
    * @description Показывает модальное окно настройки персонажа
    */
   var openPopup = function () {
-    setupPopup.classList.remove('hidden');
+    window.setup.setupPopup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
   };
 
@@ -18,7 +18,7 @@
    * @description Закрывает модальное окно настройки персонажа
    */
   var closePopup = function () {
-    setupPopup.classList.add('hidden');
+    window.setup.setupPopup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
@@ -88,6 +88,68 @@
    */
   playerNameInput.addEventListener('blur', function () {
     isFocusOnNameInput = false;
+  });
+
+  /**
+   * Событие перетаскивания окна, активируется при нажатии левой кнопки мыши на аватар пользователя в окне персонажа
+   * @param {Event} evt
+   */
+  dialogHandle.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+
+    var startCoordinates = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
+
+    var dragged = false;
+
+    /**
+     * Функция, вычисляет насколько произошло смещение при движении мышью и устанавливает новые координаты для окна персонажа
+     * @param {Event} moveEvt
+     */
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      dragged = true;
+
+      var shift = {
+        x: startCoordinates.x - moveEvt.clientX,
+        y: startCoordinates.y - moveEvt.clientY
+      };
+
+      startCoordinates = {
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
+      };
+
+      window.setup.setupPopup.style.top = (window.setup.setupPopup.offsetTop - shift.y) + 'px';
+      window.setup.setupPopup.style.left = (window.setup.setupPopup.offsetLeft - shift.x) + 'px';
+
+    };
+
+    /**
+     * Функция, убирает конфликт между установкой нового аватара пользователя и перетаскиванием диалогового окна
+     * @param {Event} upEvt
+     */
+    var onMouseUp = function (upEvt) {
+      upEvt.preventDefault();
+
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+
+      if (dragged) {
+        var onClickPreventDefault = function (draggedEvt) {
+          draggedEvt.preventDefault();
+          dialogHandle.removeEventListener('click', onClickPreventDefault);
+        };
+        dialogHandle.addEventListener('click', onClickPreventDefault);
+      }
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+
   });
 
 })();

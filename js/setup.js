@@ -103,7 +103,7 @@
   });
 
   window.setup = {
-    setup: document.querySelector('.setup')
+    setupPopup: document.querySelector('.setup')
   };
 
   showSimilarCharacters();
