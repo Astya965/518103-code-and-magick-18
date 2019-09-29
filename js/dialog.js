@@ -3,7 +3,6 @@
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = window.util.elems.setupPopup.querySelector('.setup-close');
   var dialogHandle = window.util.elems.setupPopup.querySelector('.upload');
-  var isFocusOnNameInput = false;
   var POPUP_DEFAULT = {
     x: window.util.elems.setupPopup.style.left,
     y: window.util.elems.setupPopup.style.top
@@ -16,7 +15,6 @@
     window.util.elems.setupPopup.classList.remove('hidden');
     window.util.elems.setupPopup.style.left = POPUP_DEFAULT.x;
     window.util.elems.setupPopup.style.top = POPUP_DEFAULT.y;
-    document.addEventListener('keydown', onPopupEscPress);
   };
 
   /**
@@ -24,18 +22,6 @@
    */
   var closePopup = function () {
     window.util.elems.setupPopup.classList.add('hidden');
-    document.removeEventListener('keydown', onPopupEscPress);
-  };
-
-  /**
-   * Отмена закрытия окна при нажатии на ESC
-   * @param {Event} evt
-   */
-  var onPlayerNameInputEscPress = function (evt) {
-    if (isFocusOnNameInput) {
-      evt.stopPropagation();
-    }
-    closePopup();
   };
 
   /**
@@ -43,7 +29,7 @@
    * @param {Event} evt
    */
   var onPopupEscPress = function (evt) {
-    window.util.isEscEvent(evt, onPlayerNameInputEscPress);
+    window.util.isEscEvent(evt, closePopup);
   };
 
   /**
