@@ -69,7 +69,7 @@
 
     setTimeout(function () {
       document.body.removeChild(errorNotice);
-    }, 3000);
+    }, 3500);
   };
 
   /**

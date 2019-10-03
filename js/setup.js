@@ -11,18 +11,6 @@
   var similarСharacterTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
   /**
-   * Генерация данных персонажа
-   * @return {Object} Данные персонажа (имя, цвет одежды, цвет глаз)
-   */
-  var generateCharacterData = function () {
-    return {
-      name: window.util.getRandomElement(window.util.const.FIRSTNAMES) + ' ' + window.util.getRandomElement(window.util.const.SURNAMES),
-      coatColor: window.util.getRandomElement(window.util.const.CLOTHER_СOLORS),
-      eyesColor: window.util.getRandomElement(window.util.const.EYES_COLORS)
-    };
-  };
-
-  /**
    * Генерация случайного персонажа
    * @param {Object} character - Объект с данными персонажа
    * @return {HTMLElemet} Шаблон для генерации персонажа
@@ -34,20 +22,20 @@
     var characterCoatColor = characterElement.querySelector('.wizard-coat');
     var characterEyesColor = characterElement.querySelector('.wizard-eyes');
     characterName.textContent = character.name;
-    characterCoatColor.style.fill = character.coatColor;
-    characterEyesColor.style.fill = character.eyesColor;
+    characterCoatColor.style.fill = character.colorCoat;
+    characterEyesColor.style.fill = character.colorEyes;
 
     return characterElement;
   };
 
   /**
    * @description Отображает похожих персонажей в модальном окне
+   * @param {Array} dataArray
    */
-  var showSimilarCharacters = function () {
+  var showSimilarCharacters = function (dataArray) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.util.const.CHARACTER_COUNT; i++) {
-      var characterData = generateCharacterData();
-      fragment.appendChild(renderCharacter(characterData));
+      fragment.appendChild(renderCharacter(dataArray[i]));
     }
     similarListElement.appendChild(fragment);
   };
@@ -97,6 +85,9 @@
     }, window.util.onError);
   });
 
-  showSimilarCharactersSection();
+  window.backend.load(window.backend.url.LOAD, function (wizards) {
+    showSimilarCharactersSection();
+    showSimilarCharacters(wizards);
+  }, window.util.onError);
 
 })();
