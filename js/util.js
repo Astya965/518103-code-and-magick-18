@@ -54,19 +54,23 @@
    * @param {String} color - Цвет уведомления
    */
   var onNotice = function (message, color) {
-    var errorNotice = document.createElement('div');
-    errorNotice.style = 'z-index: 100; width: 100%; margin: 0 auto; padding: 5px 0; text-align: center;';
-    errorNotice.style.backgroundColor = color;
-    errorNotice.style.position = 'fixed';
-    errorNotice.style.top = 0;
-    errorNotice.style.left = 0;
-    errorNotice.style.fontSize = '24px';
+    if (!document.body.contains(errorNotice)) {
+      var errorNotice = document.createElement('div');
+      errorNotice.style = 'z-index: 100; width: 100%; margin: 0 auto; padding: 5px 0; text-align: center;';
+      errorNotice.style.backgroundColor = color;
+      errorNotice.style.position = 'fixed';
+      errorNotice.style.top = 0;
+      errorNotice.style.left = 0;
+      errorNotice.style.fontSize = '24px';
 
-    errorNotice.textContent = message;
-    document.body.appendChild(errorNotice);
+      errorNotice.textContent = message;
+      document.body.appendChild(errorNotice);
+    } else if (document.body.contains(errorNotice)) {
+      errorNotice.classList.remove('hidden');
+    }
 
     setTimeout(function () {
-      document.body.removeChild(errorNotice);
+      errorNotice.classList.add('hidden');
     }, 3500);
   };
 
