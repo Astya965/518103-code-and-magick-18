@@ -38,37 +38,30 @@
 
   /**
    * Загрузка данных с сервера
-   * @param {String} url - Адрес, по которому происходит обращение к серверу
    * @param {Function} onLoad - Вызов функции при успешном обращении к серверу
    * @param {Function} onError - Вызов функции при ошибке
    */
-  var load = function (url, onLoad, onError) {
+  var load = function (onLoad, onError) {
     var xhr = initXHR(onLoad, onError);
-    xhr.open('GET', url);
+    xhr.open('GET', DATA_URL);
     xhr.send();
   };
 
   /**
    * Передача данных серверу
-   * @param {String} url - Адрес, по которому происходит обращение к серверу
    * @param {Object} data - Данные, которые передаются серверу
    * @param {Function} onLoad - Вызов функции при успешном обращении к серверу
    * @param {Function} onError - Вызов функции при ошибке
    */
-  var save = function (url, data, onLoad, onError) {
+  var save = function (data, onLoad, onError) {
     var xhr = initXHR(onLoad, onError);
-    xhr.open('POST', url);
+    xhr.open('POST', URL);
     xhr.send(data);
   };
 
   window.backend = {
     load: load,
-    save: save,
-
-    url: {
-      LOAD: DATA_URL,
-      SAVE: URL
-    }
+    save: save
   };
 
 })();

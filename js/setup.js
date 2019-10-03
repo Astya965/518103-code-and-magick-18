@@ -30,12 +30,12 @@
 
   /**
    * @description Отображает похожих персонажей в модальном окне
-   * @param {Array} dataArray
+   * @param {Array} data - Данные персонажей
    */
-  var showSimilarCharacters = function (dataArray) {
+  var showSimilarCharacters = function (data) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.util.const.CHARACTER_COUNT; i++) {
-      fragment.appendChild(renderCharacter(dataArray[i]));
+      fragment.appendChild(renderCharacter(data[i]));
     }
     similarListElement.appendChild(fragment);
   };
@@ -45,6 +45,16 @@
    */
   var showSimilarCharactersSection = function () {
     document.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  /**
+   * Отражение похожих персонажей при открытии меню пероснажа
+   */
+  var silimarCharactersLoad = function () {
+    window.backend.load(function (wizards) {
+      showSimilarCharactersSection();
+      showSimilarCharacters(wizards);
+    }, window.util.onError);
   };
 
   /**
@@ -79,15 +89,18 @@
    */
   setupForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(window.backend.url.SAVE, new FormData(setupForm), function () {
+    window.backend.save(new FormData(setupForm), function () {
       window.util.onSuccess('Данные успешно сохранены');
       window.dialog.closePopup();
     }, window.util.onError);
   });
 
-  window.backend.load(window.backend.url.LOAD, function (wizards) {
-    showSimilarCharactersSection();
-    showSimilarCharacters(wizards);
-  }, window.util.onError);
+  window.setup = {
+    silimarCharactersLoad: silimarCharactersLoad,
+
+    elems: {
+      similarListElement: similarListElement
+    }
+  };
 
 })();
