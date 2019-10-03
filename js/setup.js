@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var setupForm = window.util.elems.setupPopup.querySelector('.setup-wizard-form');
   var setupCharacter = window.util.elems.setupPopup.querySelector('.setup-wizard');
   var characterCoat = setupCharacter.querySelector('.wizard-coat');
   var characterEyes = setupCharacter.querySelector('.wizard-eyes');
@@ -85,7 +86,17 @@
     window.util.elems.setupPopup.querySelector('input[name="fireball-color"]').value = playersCharacterFireballColor;
   });
 
-  showSimilarCharacters();
+  /**
+   * Обработчик события отправки данных формы в меню персонажа
+   */
+  setupForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(window.backend.url.SAVE, new FormData(setupForm), function () {
+      window.util.onSuccess('Данные успешно сохранены');
+      window.dialog.closePopup();
+    }, window.util.onError);
+  });
+
   showSimilarCharactersSection();
 
 })();

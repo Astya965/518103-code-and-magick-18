@@ -129,4 +129,8 @@
 
   });
 
+  window.dialog = {
+    closePopup: closePopup
+  };
+
 })();

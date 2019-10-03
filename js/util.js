@@ -4,6 +4,9 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
+  var ERROR_COLOR = 'red';
+  var SUCCESS_COLOR = 'green';
+
   var FIRSTNAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
   var SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var CLOTHER_СOLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -47,6 +50,44 @@
     return array[randonIndex];
   };
 
+  /**
+   * Функция создания уведомления
+   * @param {String} message - Текст уведомления
+   * @param {String} color - Цвет уведомления
+   */
+  var onNotice = function (message, color) {
+    var errorNotice = document.createElement('div');
+    errorNotice.style = 'z-index: 100; width: 100%; margin: 0 auto; padding: 5px 0; text-align: center;';
+    errorNotice.style.backgroundColor = color;
+    errorNotice.style.position = 'fixed';
+    errorNotice.style.top = 0;
+    errorNotice.style.left = 0;
+    errorNotice.style.fontSize = '24px';
+
+    errorNotice.textContent = message;
+    document.body.appendChild(errorNotice);
+
+    setTimeout(function () {
+      document.body.removeChild(errorNotice);
+    }, 3000);
+  };
+
+  /**
+   * Создание уведомления об ошибке
+   * @param {String} errMessage - Текст уведомления
+   */
+  var onError = function (errMessage) {
+    onNotice(errMessage, ERROR_COLOR);
+  };
+
+  /**
+   * Создание уведомления об успешном выполнении функции
+   * @param {String} successMessage - Текст уведомления
+   */
+  var onSuccess = function (successMessage) {
+    onNotice(successMessage, SUCCESS_COLOR);
+  };
+
   window.util = {
     const: {
       ESC_KEYCODE: ESC_KEYCODE,
@@ -64,6 +105,8 @@
 
     isEscEvent: isEscEvent,
     isEnterEvent: isEnterEvent,
-    getRandomElement: getRandomElement
+    getRandomElement: getRandomElement,
+    onError: onError,
+    onSuccess: onSuccess
   };
 })();
