@@ -49,29 +49,44 @@
   };
 
   /**
+   * Таймер на скрытие элемента
+   * @param {HTMLElement} elem - Элемент
+   * @param {Number} time - Время, через которое элемент скрывается
+   */
+  var hideElementTimer = function (elem, time) {
+    setTimeout(function () {
+      elem.classList.add('hidden');
+    }, time);
+  };
+
+  /**
    * Функция создания уведомления
    * @param {String} message - Текст уведомления
    * @param {String} color - Цвет уведомления
    */
   var onNotice = function (message, color) {
-    if (!document.body.contains(errorNotice)) {
-      var errorNotice = document.createElement('div');
-      errorNotice.style = 'z-index: 100; width: 100%; margin: 0 auto; padding: 5px 0; text-align: center;';
-      errorNotice.style.backgroundColor = color;
-      errorNotice.style.position = 'fixed';
-      errorNotice.style.top = 0;
-      errorNotice.style.left = 0;
-      errorNotice.style.fontSize = '24px';
+    var notice = document.querySelector('.notice');
+    var hidingTime = 3500;
+    if (!document.body.contains(notice)) {
+      var noticeNode = document.createElement('div');
+      noticeNode.classList.add('notice');
+      noticeNode.style = 'z-index: 100; width: 100%; margin: 0 auto; padding: 5px 0; text-align: center;';
+      noticeNode.style.backgroundColor = color;
+      noticeNode.style.position = 'fixed';
+      noticeNode.style.top = 0;
+      noticeNode.style.left = 0;
+      noticeNode.style.fontSize = '24px';
 
-      errorNotice.textContent = message;
-      document.body.appendChild(errorNotice);
-    } else if (document.body.contains(errorNotice)) {
-      errorNotice.classList.remove('hidden');
+      noticeNode.textContent = message;
+      document.body.appendChild(noticeNode);
+
+      hideElementTimer(noticeNode, hidingTime);
+
+      return;
     }
+    notice.classList.remove('hidden');
 
-    setTimeout(function () {
-      errorNotice.classList.add('hidden');
-    }, 3500);
+    hideElementTimer(notice, hidingTime);
   };
 
   /**

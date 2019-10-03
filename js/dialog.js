@@ -23,9 +23,7 @@
    */
   var closePopup = function () {
     window.util.elems.setupPopup.classList.add('hidden');
-    while (window.setup.elems.similarListElement.firstChild) {
-      window.setup.elems.similarListElement.removeChild(window.setup.elems.similarListElement.firstChild);
-    }
+    window.setup.silimarCharactersRemove();
   };
 
   /**

@@ -48,13 +48,22 @@
   };
 
   /**
-   * Отражение похожих персонажей при открытии меню пероснажа
+   * @description Отражение похожих персонажей при открытии меню пероснажа
    */
   var silimarCharactersLoad = function () {
     window.backend.load(function (wizards) {
       showSimilarCharactersSection();
       showSimilarCharacters(wizards);
     }, window.util.onError);
+  };
+
+  /**
+   * @description Отражение похожих персонажей при открытии меню пероснажа
+   */
+  var silimarCharactersRemove = function () {
+    while (similarListElement.firstChild) {
+      similarListElement.removeChild(similarListElement.firstChild);
+    }
   };
 
   /**
@@ -97,6 +106,7 @@
 
   window.setup = {
     silimarCharactersLoad: silimarCharactersLoad,
+    silimarCharactersRemove: silimarCharactersRemove,
 
     elems: {
       similarListElement: similarListElement
