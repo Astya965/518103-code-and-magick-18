@@ -58,7 +58,7 @@
   };
 
   /**
-   * @description Отражение похожих персонажей при открытии меню пероснажа
+   * @description Скрытие похожих всех персонажей
    */
   var silimarCharactersRemove = function () {
     while (similarListElement.firstChild) {
