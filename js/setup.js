@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var setupForm = window.util.elems.setupPopup.querySelector('.setup-wizard-form');
   var setupCharacter = window.util.elems.setupPopup.querySelector('.setup-wizard');
   var characterCoat = setupCharacter.querySelector('.wizard-coat');
   var characterEyes = setupCharacter.querySelector('.wizard-eyes');
@@ -8,18 +9,6 @@
 
   var similarListElement = document.querySelector('.setup-similar-list');
   var similarСharacterTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-
-  /**
-   * Генерация данных персонажа
-   * @return {Object} Данные персонажа (имя, цвет одежды, цвет глаз)
-   */
-  var generateCharacterData = function () {
-    return {
-      name: window.util.getRandomElement(window.util.const.FIRSTNAMES) + ' ' + window.util.getRandomElement(window.util.const.SURNAMES),
-      coatColor: window.util.getRandomElement(window.util.const.CLOTHER_СOLORS),
-      eyesColor: window.util.getRandomElement(window.util.const.EYES_COLORS)
-    };
-  };
 
   /**
    * Генерация случайного персонажа
@@ -33,20 +22,20 @@
     var characterCoatColor = characterElement.querySelector('.wizard-coat');
     var characterEyesColor = characterElement.querySelector('.wizard-eyes');
     characterName.textContent = character.name;
-    characterCoatColor.style.fill = character.coatColor;
-    characterEyesColor.style.fill = character.eyesColor;
+    characterCoatColor.style.fill = character.colorCoat;
+    characterEyesColor.style.fill = character.colorEyes;
 
     return characterElement;
   };
 
   /**
    * @description Отображает похожих персонажей в модальном окне
+   * @param {Array} data - Данные персонажей
    */
-  var showSimilarCharacters = function () {
+  var showSimilarCharacters = function (data) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.util.const.CHARACTER_COUNT; i++) {
-      var characterData = generateCharacterData();
-      fragment.appendChild(renderCharacter(characterData));
+      fragment.appendChild(renderCharacter(data[i]));
     }
     similarListElement.appendChild(fragment);
   };
@@ -56,6 +45,25 @@
    */
   var showSimilarCharactersSection = function () {
     document.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  /**
+   * @description Отражение похожих персонажей при открытии меню пероснажа
+   */
+  var silimarCharactersLoad = function () {
+    window.backend.load(function (wizards) {
+      showSimilarCharactersSection();
+      showSimilarCharacters(wizards);
+    }, window.util.onError);
+  };
+
+  /**
+   * @description Скрытие похожих всех персонажей
+   */
+  var silimarCharactersRemove = function () {
+    while (similarListElement.firstChild) {
+      similarListElement.removeChild(similarListElement.firstChild);
+    }
   };
 
   /**
@@ -85,7 +93,24 @@
     window.util.elems.setupPopup.querySelector('input[name="fireball-color"]').value = playersCharacterFireballColor;
   });
 
-  showSimilarCharacters();
-  showSimilarCharactersSection();
+  /**
+   * Обработчик события отправки данных формы в меню персонажа
+   */
+  setupForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(setupForm), function () {
+      window.util.onSuccess('Данные успешно сохранены');
+      window.dialog.closePopup();
+    }, window.util.onError);
+  });
+
+  window.setup = {
+    silimarCharactersLoad: silimarCharactersLoad,
+    silimarCharactersRemove: silimarCharactersRemove,
+
+    elems: {
+      similarListElement: similarListElement
+    }
+  };
 
 })();
