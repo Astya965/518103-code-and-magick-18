@@ -53,8 +53,22 @@
     }, window.util.onError);
   });
 
-  window.character = {
-    character: character
-  };
+  /**
+   * Обновление отражения похожих персонажей при смене цвета глаз главного героя
+   * @param {String} color - Новый цвет глаз главного героя
+   */
+  character.onEyesChange = window.debounce(function (color) {
+    window.eyesColor = color;
+    window.similar.updateSilimarCharacters();
+  });
+
+  /**
+   * Обновление отражения похожих персонажей при смене цвета одежды главного героя
+   * @param {String} color - Новый цвет одежды главного героя
+   */
+  character.onCoatChange = window.debounce(function (color) {
+    window.coatColor = color;
+    window.similar.updateSilimarCharacters();
+  });
 
 })();

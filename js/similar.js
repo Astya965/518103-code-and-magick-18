@@ -3,8 +3,6 @@
 (function () {
 
   var similarListElement = document.querySelector('.setup-similar-list');
-  var coatColor;
-  var eyesColor;
   var characters = [];
 
   /**
@@ -15,10 +13,10 @@
   var getRank = function (character) {
     var rank = 0;
 
-    if (character.colorCoat === coatColor) {
+    if (character.colorCoat === window.coatColor) {
       rank += 2;
     }
-    if (character.colorEyes === eyesColor) {
+    if (character.colorEyes === window.eyesColor) {
       rank += 1;
     }
 
@@ -58,24 +56,6 @@
   };
 
   /**
-   * Обновление отражения похожих персонажей при смене цвета глаз главного героя
-   * @param {String} color - Новый цвет глаз главного героя
-   */
-  window.character.character.onEyesChange = window.debounce.debounce(function (color) {
-    eyesColor = color;
-    updateSilimarCharacters();
-  });
-
-  /**
-   * Обновление отражения похожих персонажей при смене цвета одежды главного героя
-   * @param {String} color - Новый цвет одежды главного героя
-   */
-  window.character.character.onCoatChange = window.debounce.debounce(function (color) {
-    coatColor = color;
-    updateSilimarCharacters();
-  });
-
-  /**
    * @description Отражение похожих персонажей при открытии меню пероснажа
    */
   var silimarCharactersLoad = function () {
@@ -98,6 +78,7 @@
   window.similar = {
     silimarCharactersLoad: silimarCharactersLoad,
     silimarCharactersRemove: silimarCharactersRemove,
+    updateSilimarCharacters: updateSilimarCharacters,
 
     elems: {
       similarListElement: similarListElement

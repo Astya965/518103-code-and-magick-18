@@ -9,7 +9,7 @@
    * @param {Function} cb - Callback
    * @return {Function} Функция устранения дребезга с собственным таймером
    */
-  var debounce = function (cb) {
+  window.debounce = function (cb) {
     var lastTimeout = null;
 
     return function () {
@@ -21,10 +21,6 @@
         cb.apply(null, parameters);
       }, DEBOUNCE_INTERVAL);
     };
-  };
-
-  window.debounce = {
-    debounce: debounce
   };
 
 })();
