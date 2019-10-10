@@ -46,7 +46,7 @@
    * Отражение обновленного списка похожих персонажей (сортировка по схожести, по убыванию)
    */
   var updateSilimarCharacters = function () {
-    silimarCharactersLoad(characters
+    window.render.showSimilarCharacters(characters
       .slice()
       .sort(function (left, right) {
         var rankDiff = getRank(right) - getRank(left);
@@ -61,19 +61,19 @@
    * Обновление отражения похожих персонажей при смене цвета глаз главного героя
    * @param {String} color - Новый цвет глаз главного героя
    */
-  window.character.character.onEyesChange = function (color) {
+  window.character.character.onEyesChange = window.debounce.debounce(function (color) {
     eyesColor = color;
-    window.debounce.debounce(updateSilimarCharacters);
-  };
+    updateSilimarCharacters();
+  });
 
   /**
    * Обновление отражения похожих персонажей при смене цвета одежды главного героя
    * @param {String} color - Новый цвет одежды главного героя
    */
-  window.character.character.onCoatChange = function (color) {
+  window.character.character.onCoatChange = window.debounce.debounce(function (color) {
     coatColor = color;
-    window.debounce.debounce(updateSilimarCharacters);
-  };
+    updateSilimarCharacters();
+  });
 
   /**
    * @description Отражение похожих персонажей при открытии меню пероснажа
@@ -81,8 +81,8 @@
   var silimarCharactersLoad = function () {
     window.backend.load(function (data) {
       characters = data;
+      updateSilimarCharacters();
       window.render.showSimilarCharactersSection();
-      window.render.showSimilarCharacters(characters);
     }, window.util.onError);
   };
 

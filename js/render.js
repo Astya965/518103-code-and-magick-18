@@ -25,11 +25,12 @@
    * @param {Array} data - Данные персонажей
    */
   var showSimilarCharacters = function (data) {
+    window.similar.elems.similarListElement.innerHTML = '';
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.util.const.CHARACTER_COUNT; i++) {
       fragment.appendChild(renderCharacter(data[i]));
     }
-    window.setup.elems.similarListElement.appendChild(fragment);
+    window.similar.elems.similarListElement.appendChild(fragment);
   };
 
   /**
