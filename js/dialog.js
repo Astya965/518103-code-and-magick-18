@@ -12,7 +12,7 @@
    * @description Показывает модальное окно настройки персонажа
    */
   var openPopup = function () {
-    window.setup.silimarCharactersLoad();
+    window.similar.silimarCharactersLoad();
     window.util.elems.setupPopup.classList.remove('hidden');
     window.util.elems.setupPopup.style.left = POPUP_DEFAULT.x;
     window.util.elems.setupPopup.style.top = POPUP_DEFAULT.y;
@@ -23,7 +23,7 @@
    */
   var closePopup = function () {
     window.util.elems.setupPopup.classList.add('hidden');
-    window.setup.silimarCharactersRemove();
+    window.similar.silimarCharactersRemove();
   };
 
   /**
