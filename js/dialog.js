@@ -12,7 +12,7 @@
    * @description Показывает модальное окно настройки персонажа
    */
   var openPopup = function () {
-    window.similar.silimarCharactersLoad();
+    window.similar.similarCharactersLoad();
     window.util.elems.setupPopup.classList.remove('hidden');
     window.util.elems.setupPopup.style.left = POPUP_DEFAULT.x;
     window.util.elems.setupPopup.style.top = POPUP_DEFAULT.y;

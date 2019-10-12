@@ -58,7 +58,7 @@
   /**
    * @description Отражение похожих персонажей при открытии меню пероснажа
    */
-  var silimarCharactersLoad = function () {
+  var similarCharactersLoad = function () {
     window.backend.load(function (data) {
       characters = data;
       updateSilimarCharacters();
@@ -76,7 +76,7 @@
   };
 
   window.similar = {
-    silimarCharactersLoad: silimarCharactersLoad,
+    similarCharactersLoad: similarCharactersLoad,
     silimarCharactersRemove: silimarCharactersRemove,
     updateSilimarCharacters: updateSilimarCharacters,
 
