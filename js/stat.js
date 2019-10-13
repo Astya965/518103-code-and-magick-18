@@ -47,7 +47,7 @@
 
   /**
    * @description Отрисовка облака статистики
-   * @param {Method} ctx - Контекст отрисовки
+   * @param {CanvasRenderingContext2D} ctx - Контекст отрисовки
    * @param {Number} x - Координата x
    * @param {Number} y - Координата y
    */
@@ -66,7 +66,7 @@
 
   /**
    * @description Отрисовка облака статистики
-   * @param {Method} ctx - Контекст отрисовки
+   * @param {CanvasRenderingContext2D} ctx - Контекст отрисовки
    * @param {Array} namesArray - Массив имен игроков
    * @param {Array} timesArray - Массив времени прохождения уровня
    * @param {Index} elementIndex - Индекс элемента
@@ -87,7 +87,7 @@
 
   /**
    * @description Полная отрисовка статистики
-   * @param {Method} ctx - Контекст отрисовки
+   * @param {CanvasRenderingContext2D} ctx - Контекст отрисовки
    * @param {Array} names - Массив имен игроков
    * @param {Array} times - Массив времени прохождения уровня
    */

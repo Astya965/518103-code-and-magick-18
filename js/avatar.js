@@ -5,6 +5,7 @@
 
   var fileChooser = document.querySelector('.upload input[type=file]');
   var preview = document.querySelector('.setup-user-pic');
+  var previewSetupOpen = document.querySelector('.setup-open-icon');
 
   /**
    * @description Обновление аватарки пользователя
@@ -30,6 +31,7 @@
         */
         reader.addEventListener('load', function () {
           preview.src = reader.result;
+          previewSetupOpen.src = reader.result;
         });
 
         reader.readAsDataURL(file);
