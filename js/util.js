@@ -1,11 +1,15 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
+  var KeyCode = {
+    ESC: 27,
+    ENTER: 13
+  };
 
-  var ERROR_COLOR = 'red';
-  var SUCCESS_COLOR = 'green';
+  var NoticeColor = {
+    ERROR: 'red',
+    SUCCESS: 'green'
+  };
 
   var CLOTHER_СOLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
@@ -22,7 +26,7 @@
    * @param {Function} action - Функция, которая вызывается в событии с использованием ESC
    */
   var isEscEvent = function (evt, action) {
-    if ((evt.keyCode === ESC_KEYCODE) && (document.activeElement !== playerNameInput)) {
+    if ((evt.keyCode === KeyCode.ESC) && (document.activeElement !== playerNameInput)) {
       action();
     }
   };
@@ -33,7 +37,7 @@
    * @param {Function} action - Функция, которая вызывается в событии с использованием ESC
    */
   var isEnterEvent = function (evt, action) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === KeyCode.ENTER) {
       action();
     }
   };
@@ -94,7 +98,7 @@
    * @param {String} errMessage - Текст уведомления
    */
   var onError = function (errMessage) {
-    onNotice(errMessage, ERROR_COLOR);
+    onNotice(errMessage, NoticeColor.ERROR);
   };
 
   /**
@@ -102,12 +106,11 @@
    * @param {String} successMessage - Текст уведомления
    */
   var onSuccess = function (successMessage) {
-    onNotice(successMessage, SUCCESS_COLOR);
+    onNotice(successMessage, NoticeColor.SUCCESS);
   };
 
   window.util = {
     const: {
-      ESC_KEYCODE: ESC_KEYCODE,
       CLOTHER_СOLORS: CLOTHER_СOLORS,
       EYES_COLORS: EYES_COLORS,
       FIREBALL_COLORS: FIREBALL_COLORS,

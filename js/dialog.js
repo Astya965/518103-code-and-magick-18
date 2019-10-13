@@ -7,6 +7,10 @@
     x: window.util.elems.setupPopup.style.left,
     y: window.util.elems.setupPopup.style.top
   };
+  var Coordinates = function (x, y) {
+    this.x = x;
+    this.y = y;
+  };
 
   /**
    * @description Показывает модальное окно настройки персонажа
@@ -76,10 +80,7 @@
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var startCoordinates = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
+    var startCoordinates = new Coordinates(evt.clientX, evt.clientY);
 
     var dragged = false;
 
@@ -92,15 +93,9 @@
 
       dragged = true;
 
-      var shift = {
-        x: startCoordinates.x - moveEvt.clientX,
-        y: startCoordinates.y - moveEvt.clientY
-      };
+      var shift = new Coordinates(startCoordinates.x - moveEvt.clientX, startCoordinates.y - moveEvt.clientY);
 
-      startCoordinates = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
+      startCoordinates = new Coordinates(moveEvt.clientX, moveEvt.clientY);
 
       window.util.elems.setupPopup.style.top = (window.util.elems.setupPopup.offsetTop - shift.y) + 'px';
       window.util.elems.setupPopup.style.left = (window.util.elems.setupPopup.offsetLeft - shift.x) + 'px';

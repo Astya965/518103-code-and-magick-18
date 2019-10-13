@@ -41,7 +41,7 @@
   };
 
   /**
-   * Отражение обновленного списка похожих персонажей (сортировка по схожести, по убыванию)
+   * @description Отражение обновленного списка похожих персонажей (сортировка по схожести, по убыванию)
    */
   var updateSilimarCharacters = function () {
     window.render.showSimilarCharacters(characters
